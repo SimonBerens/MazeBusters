@@ -1,5 +1,6 @@
 ## Personnel:
   Simon Berens
+  
   Lucien Eckert
 
 ## The Problem: Is there a path through a maze starting and ending at a designated point.

@@ -10,11 +10,29 @@
 Code-sharing  [here](https://codeshare.io/GqlWpj)
 
 ## Version 0:
-  - Returns boolean value of existence of solution
+  * Returns boolean value of existence of solution
 
 ## Version n-1 Wishlist:
-  - Return all solutions
+  * Return all solutions
 
 ## Version n Wishlist:
-  - Shortest path
-  - Set of moves
+  * Shortest path
+  * Set of moves
+
+## Classes:
+#### Maze 
+* Fields
+..* 2-D array for points (maybe in vn just store the turning points) )
+..* Current location
+* Methods
+..* getCurLoc()
+..* movePos(direction)
+..* markPtAsVisited()
+..* markPtAsBacktracked()
+..* findMoves()
+
+#### Solver
+ * Fields
+ ..* Maze
+ * Methods
+ ..* solve()

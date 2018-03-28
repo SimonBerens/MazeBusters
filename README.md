@@ -35,4 +35,4 @@ Code-sharing  [here](https://codeshare.io/GqlWpj)
  * Fields
    * Maze
  * Methods
-  * solve()
+   * solve()

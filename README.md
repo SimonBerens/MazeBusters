@@ -22,17 +22,17 @@ Code-sharing  [here](https://codeshare.io/GqlWpj)
 ## Classes:
 #### Maze 
 * Fields
-..* 2-D array for points (maybe in vn just store the turning points) )
-..* Current location
+  * 2-D array for points (maybe in vn just store the turning points) )
+  * Current location
 * Methods
-..* getCurLoc()
-..* movePos(direction)
-..* markPtAsVisited()
-..* markPtAsBacktracked()
-..* findMoves()
+  * getCurLoc()
+  * movePos(direction)
+  * markPtAsVisited()
+  * markPtAsBacktracked()
+  * findMoves()
 
 #### Solver
  * Fields
- ..* Maze
+   * Maze
  * Methods
- ..* solve()
+  * solve()

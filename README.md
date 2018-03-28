@@ -36,3 +36,16 @@ Code-sharing  [here](https://codeshare.io/GqlWpj)
    * Maze
  * Methods
    * solve()
+## Algorithm:
+solve(Maze maze, Point currentPoint)
+
+if currentPoint .equals() the end point
+	then return true; //accept
+    
+if no legal moves
+	backtrack //reject 
+mark;
+
+for(all legal moves) //recursive
+    call the abstraction on next point;
+

@@ -86,20 +86,19 @@ public class Maze {
       Deep copy of all instance fields.
      */
     public Maze( Maze old) {
-        System.out.println(old.rankCount);
-        maze = new int[ old.rankCount][old.maze[0].length];
+
+        // Copy the explorer's position (code by Holmes is asserted to work)
+        explorerPosition = new Vector( old.explorerPosition);
         this.rankCount = old.rankCount;
-        
-            for(int rank = 0; rank < old.rankCount; rank++) {
-              for(int file = 0; file < old.maze[rank].length; file++) {
-                System.out.println(old.maze[rank][file]);
-                this.maze[rank][file] = old.maze[rank][file];
-              }
+        maze = new int[rankCount][]; // *hopefully* works for non rectangular mazes
+        for (int rank = 0; rank < rankCount; rank++) {
+            int fileLength = old.maze[rank].length;
+            maze[rank] = new int[fileLength];
+            for (int file = 0; file < fileLength; file++) {
+                maze[rank][file] = old.maze[rank][file];
             }
-            int explorerX = old.explorerPosition.file;
-            int explorerY = old.explorerPosition.rank;
-            explorerPosition = new Vector().add( explorerY, explorerX);
-            //^^ dunno man
+        }
+    }
 
 
     }

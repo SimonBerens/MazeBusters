@@ -37,15 +37,13 @@ Code-sharing  [here](https://codeshare.io/GqlWpj)
  * Methods
    * solve()
 ## Algorithm:
-solve(Maze maze, Point currentPoint)
-
-if currentPoint .equals() the end point
-	then return true; //accept
-    
-if no legal moves
-	backtrack //reject 
-mark;
-
-for(all legal moves) //recursive
-    call the abstraction on next point;
-
+solve(maze)
+	if explorer is on the end point
+		return true
+	if explorer is on wall
+		return false
+	record snapshot s
+	return solve(s but with explorer one tile north) ||
+	       solve(s but with explorer one tile south) ||
+	       solve(s but with explorer one tile east) || 
+	       solve(s but with explorer one tile west)

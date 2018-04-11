@@ -37,23 +37,23 @@ Code-sharing  [here](https://codeshare.io/GqlWpj)
  * Methods
    * solve()
 ## Algorithm:
-solve(maze)
+	solve(maze)
 
-	if explorer is on the end point
-	
-		return true
-		
-	if explorer is on wall
-	
-		return false
-		
-	record snapshot s
-	
-	return solve(s but with explorer one tile north) ||
-	
-	       solve(s but with explorer one tile south) ||
-	       
-	       solve(s but with explorer one tile east) || 
-	       
-	       solve(s but with explorer one tile west)
-	      
+		if explorer is on the end point
+
+			return true
+
+		if explorer is on wall
+
+			return false
+
+		record snapshot s
+
+		return solve(s but with explorer one tile north) ||
+
+		       solve(s but with explorer one tile south) ||
+
+		       solve(s but with explorer one tile east) || 
+
+		       solve(s but with explorer one tile west)
+

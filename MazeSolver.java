@@ -1,3 +1,8 @@
+/** 
+    Maze solver class with method solve that takes a Maze as an argument
+    Returns the boolean value of the statement "This maze has a solution"
+*/
+
 public class MazeSolver {
     public static boolean solve(Maze maze) {
         if (maze.explorerIsOnA() == Maze.TREASURE) return true; // TODO: 4/11/2018 make @explorerIsOnA take a parameter

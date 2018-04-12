@@ -38,7 +38,7 @@ public class UserOfMaze {
     /**
       Move around a maze. Check the results.
       Run using a shell command like...
-          java UserOfMaze mazes/intersection_treasureNorth.txt 1 1
+          java UserOfMaze mazes/4cell_treasureWest.txt -1 -1  # no explorer
      */
     private static void moveTest( Maze maze) {
         maze.go( Maze.EAST);

@@ -5,11 +5,12 @@ public class UserOfMazeSolver {
     public static void main(String[] commandLine)
             throws java.io.FileNotFoundException {
         // TODO: 4/12/2018 add more mazes into /mazes (see https://piazza.com/class/j7oyiev6r7x576?cid=446) URGENT
-        String[] mazes = {"mazes\\4cell_treasureWest.txt",
-                        "mazes\\fork_longWest.txt",
-                        "mazes\\intersection_noTreasure.txt",
-                        "mazes\\intersection_treasureNorth.txt",
-                        "mazes\\lotsOfTreasure.txt",
+        String[] mazes = {"mazes/4cell_treasureWest.txt",
+                        "mazes/fork_longWest.txt",
+                        "mazes/intersection_noTreasure.txt",
+                        "mazes/intersection_treasureNorth.txt",
+                        "mazes/lotsOfTreasure.txt",
+                        "mazes/bigBoi.txt",
                         };
         for(int i = 0; i < mazes.length; i++) {
             System.out.println(mazes[i]);

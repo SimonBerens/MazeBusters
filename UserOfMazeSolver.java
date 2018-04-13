@@ -6,10 +6,15 @@ public class UserOfMazeSolver {
             throws java.io.FileNotFoundException {
         System.out.println();
 
+        // TODO: 4/12/2018 add more mazes into /mazes (see https://piazza.com/class/j7oyiev6r7x576?cid=446) URGENT
+
         Maze maze = new Maze( commandLine[0]
                 , Integer.parseInt( commandLine[1])
                 , Integer.parseInt( commandLine[2])
-        );
+        ); // TODO: 4/12/2018 replace this with an array of the file names, iterate through the array URGENT
+        // TODO: 4/12/2018 for each maze, test it by creating a few random locations URGENT
+        // TODO: 4/12/2018 use the displayer on each one URGENT
+        // TODO: 4/12/2018 don't use commandline args for this URGENT
         System.out.println( maze + System.lineSeparator());
 /**
         Displayer Test: works for invocations such as...
@@ -32,4 +37,7 @@ public class UserOfMazeSolver {
             displayer.atTopOfWindow( m + "step " + step++);
         }
     }
+
+    // TODO: 4/12/2018 we don't need the displayer test, jsut to use the displayer URGENT
+    
 }

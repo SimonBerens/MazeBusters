@@ -24,6 +24,7 @@ public class MazeSolver {
         westMaze.dropA(Maze.WALL);
         westMaze.go(Maze.WEST);
         // TODO: 4/12/2018 refactor into a for loop URGENT (array of directions, create a new maze each iteration)
+        // TODO: 4/12/2018 you will probably need a boolean variable to keep track of the state
         return solve(northMaze) || solve(southMaze) || solve(eastMaze) || solve(westMaze);
     }
 }

@@ -4,27 +4,28 @@
 */
 
 public class MazeSolver {
+
+    static Displayer displayer = new Displayer(24);
+
     public static boolean solve(Maze maze) {
+        displayer.atTopOfWindow(maze.toString());
         if (maze.explorerIsOnA() == Maze.TREASURE) return true; // TODO: 4/11/2018 make @explorerIsOnA take a parameter
-        if (maze.explorerIsOnA() == Maze.WALL) return false;
-        // TODO: 4/12/2018 replace with check with if explorer is on anything other than a wall (to handle irregular characters) URGENT
+                                                                        // ??
+        if (maze.explorerIsOnA() != Maze.STEPPING_STONE) return false;
         // TODO: 4/12/2018 add check for if explorer is outside of maze (explorer == null) URGENT
+            // ok but like why don't we just keep calling it a wall
         // TODO: 4/11/2018 make go return a maze
         // TODO: 4/11/2018 make dropA return a maze 
         Maze northMaze = new Maze(maze);
-        northMaze.dropA(Maze.WALL);
-        northMaze.go(Maze.NORTH);
         Maze southMaze = new Maze(maze);
-        southMaze.dropA(Maze.WALL);
-        southMaze.go(Maze.SOUTH);
         Maze eastMaze = new Maze(maze);
-        eastMaze.dropA(Maze.WALL);
-        eastMaze.go(Maze.EAST);
         Maze westMaze = new Maze(maze);
-        westMaze.dropA(Maze.WALL);
-        westMaze.go(Maze.WEST);
-        // TODO: 4/12/2018 refactor into a for loop URGENT (array of directions, create a new maze each iteration)
-        // TODO: 4/12/2018 you will probably need a boolean variable to keep track of the state
+        Maze[] mazes = {northMaze, southMaze, eastMaze, westMaze,};
+        int[] directions = {Maze.NORTH, Maze.SOUTH, Maze.EAST, Maze.WEST,};
+        for(int i = 0; i < 4; i++) {
+            mazes[i].dropA(Maze.WALL);
+            mazes[i].go(directions[i]);
+        }
         return solve(northMaze) || solve(southMaze) || solve(eastMaze) || solve(westMaze);
     }
 }

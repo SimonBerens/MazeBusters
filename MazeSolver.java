@@ -5,7 +5,7 @@
 
 public class MazeSolver {
 
-    static Displayer displayer = new Displayer(24);
+    static Displayer displayer = new Displayer(1);
 
     public static boolean solve(Maze maze) {
         displayer.atTopOfWindow(maze.toString());

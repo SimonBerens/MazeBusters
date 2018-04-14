@@ -5,9 +5,10 @@ import java.util.Scanner;
 public class UserOfMazeSolver {
 
     public static void main(String[] commandLine) throws FileNotFoundException {
-
+        System.out.println("If this is printed, pls set your filepath in the code and comment this out");
         // see https://piazza.com/class/j7oyiev6r7x576?cid=446
-        String filePath = "C:\\Users\\gbere\\Desktop\\AP_CS\\MazeSolver\\mazes"; // modify as necessary
+        // String filePath = "C:\\Users\\gbere\\Desktop\\AP_CS\\MazeSolver\\mazes"; // modify as necessary
+        // String filePath = "C:\\Users\\lucie\\Documents\\School\\Git\\MazeBusters\\mazes";
         String[] mazes = ( new File( filePath)).list();
 
         int option;
@@ -83,7 +84,7 @@ public class UserOfMazeSolver {
 
     private static void showOptions( String[] mazes) {
         System.out.println( "Here are your options");
-
+        System.out.println( mazes.length);
         for ( int i = 0; i < mazes.length; i++) {
             System.out.println( i + ": " + mazes[ i]);
         }

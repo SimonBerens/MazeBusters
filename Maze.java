@@ -21,7 +21,8 @@ public class Maze {
     public enum Tile {
         TREASURE,
         WALL,
-        STEPPING_STONE
+        STEPPING_STONE,
+        PATH,
     }
 
     /**
@@ -130,6 +131,8 @@ public class Maze {
                      case STEPPING_STONE:
                         output += explorerIsHere? "e" : "*";
                         break;
+                     case PATH:
+                        output += explorerIsHere? "E" : "#";
                  }
                 if ( file == maze[ rank].length - 1) output += "\n";
             }

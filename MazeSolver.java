@@ -15,7 +15,10 @@ public class MazeSolver {
     public static boolean solve(Maze maze) {
 
         // base cases
-        if (maze.explorerIsOnA() == Maze.Tile.TREASURE) return true;
+        if (maze.explorerIsOnA() == Maze.Tile.TREASURE) {
+            System.out.println(maze);
+            return true;
+        }
         if (maze.explorerIsOnA() != Maze.Tile.STEPPING_STONE) return false;
 
         // save the maze so you can backtrack
@@ -27,7 +30,9 @@ public class MazeSolver {
 
             // call the recursive abstraction after turning the current position
             // into a wall and moving in a direction
-            if(solve(maze.dropA(Maze.Tile.WALL).go(direction))) return true;
+            if(solve(maze.dropA(Maze.Tile.PATH).go(direction))) {
+                return true;
+            }
 
             // set the current maze back to the snapshot
             maze = new Maze(snapshot);

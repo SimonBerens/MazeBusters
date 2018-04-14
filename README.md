@@ -20,8 +20,8 @@ Code-sharing  [here](https://codeshare.io/GqlWpj)
 ## Version 0:
   * Returns boolean value of existence of solution
 
-## Version n-1 Wishlist:
-  * Return all solutions
+## Version 1:
+  * Port directions and maze tiles to enums
 
 ## Version n Wishlist:
   * Shortest path

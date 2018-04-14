@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserOfMazeSolver {
@@ -65,9 +66,12 @@ public class UserOfMazeSolver {
 
         int questionableChoice;
         do {
-            System.out.println( "Please enter a valid input");
+            System.out.println("Please enter a valid choice!");
+            while (!sc.hasNextInt()) {
+                System.out.println("That's not a number!");
+                sc.next();
+            }
             questionableChoice = sc.nextInt();
-            sc.nextLine();
         } while (!(questionableChoice >= 0 && questionableChoice < range));
         return questionableChoice; // no longer questionable
     }

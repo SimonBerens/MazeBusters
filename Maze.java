@@ -15,21 +15,26 @@ import java.util.Scanner;
 
 public class Maze {
 
-    // MazeTerminal named constants
-    public final static int TREASURE = 0;
-    public final static int WALL = 1;
-    public final static int STEPPING_STONE = 2;
-    
-    // directions that can be searched
-    public final static int EAST =  1;
-    public final static int NORTH = 2;
-    public final static int WEST =  4;
-    public final static int SOUTH = 8;
-       /* Values are pretty arbitrary. Values of 2^n might be useful
-          in the unlikely event that we ever want to add north-west, etc.:
-          2+4 --> 6  */
-    
-    private int[][] maze;
+    /**
+     * Possible Maze Tiles
+     */
+    public enum Tile {
+        TREASURE,
+        WALL,
+        STEPPING_STONE
+    }
+
+    /**
+     * Possible movement directions
+     */
+    public enum Direction {
+        NORTH,
+        EAST,
+        SOUTH,
+        WEST
+    }
+
+    private Tile[][] maze;
     private final static int MAX_RANKS = 64;
     private int rankCount;  // number of ranks in a constructed Maze
     
@@ -45,7 +50,7 @@ public class Maze {
 
         /* Construct the maze array one rank at a time, in case
            we ever allow non-rectangular mazes  */
-        maze = new int[ MAX_RANKS][];
+        maze = new Tile[ MAX_RANKS][];
 
         Scanner sc = new Scanner( new java.io.File( sourceFilename));
         sc.useDelimiter("");  // Whitespaces are data, not delimiters.
@@ -60,16 +65,16 @@ public class Maze {
             String line = sc.nextLine();
             // System.out.println( "|" + line + "|");
             
-            maze[ rank] = new int[ line.length()];
+            maze[ rank] = new Tile[ line.length()];
 
             // Convert the input line into maze elements.
             for( int file = 0; file < line.length(); file++ ) {
                 String inChar = line.substring( file, file+1);
-                int element;  // value destined for maze array
-                if(      inChar.equals("0"))  element = TREASURE;
-                else if( inChar.equals("*"))  element = STEPPING_STONE;
+                Tile element;  // value destined for maze array
+                if(      inChar.equals("0"))  element = Tile.TREASURE;
+                else if( inChar.equals("*"))  element = Tile.STEPPING_STONE;
                 // spaces and unrecognised characters are walls
-                else                          element = WALL;
+                else                          element = Tile.WALL;
                 maze[ rank][ file] = element;
             }
         }
@@ -90,10 +95,10 @@ public class Maze {
         // Copy the explorer's position (code by Holmes is asserted to work)
         explorerPosition = new Vector( old.explorerPosition);
         this.rankCount = old.rankCount;
-        maze = new int[rankCount][]; // *hopefully* works for non rectangular mazes
+        maze = new Tile[rankCount][]; // *hopefully* works for non rectangular mazes
         for (int rank = 0; rank < rankCount; rank++) {
             int fileLength = old.maze[rank].length;
-            maze[rank] = new int[fileLength];
+            maze[rank] = new Tile[fileLength];
             for (int file = 0; file < fileLength; file++) {
                 maze[rank][file] = old.maze[rank][file];
             }
@@ -108,39 +113,29 @@ public class Maze {
       @return a string representing of this instance
      */
     public String toString() {
-        
-        /* characters that represent elements of the maze,
-           indexed by the numbers used to represent elements
-          */
-        final String outChar = "0 *";  // no explorer here
-        final String exOnTop = "!Ee";  /* explorer on top of
-           treasure, wall, stepping stone, etc. */
 
-        // build string for top and bottom separators
-        String aboveAndBelow = "-";
-        for( int file = 0; file < maze[0].length; file++)
-            aboveAndBelow += "-";
-        aboveAndBelow += "-" + System.lineSeparator();
-        
-        // process maze[][], explorer
-        String result = aboveAndBelow;
-        for( int rank = 0; rank < rankCount; rank++) {
-            result += "|";
-            for( int file = 0; file < maze[ rank].length; file++) {
-                int elem = maze[ rank][ file];
-                
-                // choose from the appropriate character set,
-                if(    explorerPosition != null
-                    && explorerPosition.equals( rank, file)
-                  )
-                     result += exOnTop.substring( elem, elem+1);
-                else result += outChar.substring( elem, elem+1);
+        String output = "";
+        for (int rank = 0; rank < rankCount; rank++) {
+
+            for ( int file = 0; file < maze[ rank].length; file++) {
+                 boolean explorerIsHere = explorerPosition != null && explorerPosition.equals( new Vector().add( rank, file));
+                 // not as nice but much easier to understand
+                 switch ( maze[ rank][ file]) {
+                     case TREASURE:
+                        output += explorerIsHere? "!" : "0";
+                        break;
+                     case WALL:
+                        output += explorerIsHere? "E" : " ";
+                        break;
+                     case STEPPING_STONE:
+                        output += explorerIsHere? "e" : "*";
+                        break;
+                 }
+                if ( file == maze[ rank].length - 1) output += "\n";
             }
-            result += "|" + System.lineSeparator();
         }
-        return   result + aboveAndBelow;
+        return output;
     }
-
 
     /**
       Move the Explorer a step in the indicated direction.
@@ -149,7 +144,7 @@ public class Maze {
       
       @precondition: explorer starts in a valid position
      */
-    public void go( int direction)  { 
+    public Maze go( Direction direction)  {
         switch( direction) {
             case EAST:
                 explorerPosition = explorerPosition.add( 0, 1);
@@ -164,6 +159,7 @@ public class Maze {
                 explorerPosition = explorerPosition.add( 1, 0);
                 break;
         }
+        return this;
     }
 
 
@@ -171,9 +167,10 @@ public class Maze {
       Modify the maze to have @mazeElement in the explorer's position.
       Nix dropping treasure.
      */
-    public void dropA( int mazeElement) {
-        if( mazeElement != TREASURE)
+    public Maze dropA( Tile mazeElement) {
+        if( mazeElement != Tile.TREASURE)
             maze[ explorerPosition.rank][ explorerPosition.file] = mazeElement;
+        return this;
     }
 
 
@@ -183,8 +180,8 @@ public class Maze {
               because the user-programmer's code is expected to benefit
               from that equivalence.
      */
-    public int explorerIsOnA() {
-        if( explorerPosition == null) return WALL;
+    public Tile explorerIsOnA() {
+        if( explorerPosition == null) return Tile.WALL;
         else return maze[ explorerPosition.rank][ explorerPosition.file];
     }
 
@@ -197,8 +194,24 @@ public class Maze {
      */
     private class Vector {
         private int rank, file;
-        
-        // The no-arg constructor produces [0, 0] 
+
+        @Override
+        public String toString() {
+            return "[ " + rank + ", " + file + "]";
+        }
+
+        /**
+         * Checks for equal ranks and files
+         * @param obj Object to check for equality
+         * @return their equality
+         */
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof Vector) return (rank == ((Vector) obj).rank) && file == ((Vector) obj).file;
+            return false;
+        }
+
+        // The no-arg constructor produces [0, 0]
         private Vector() {}
 
         // copy-constructor

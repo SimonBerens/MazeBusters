@@ -7,7 +7,7 @@
 	Is there a path through a maze starting and ending at a designated point.
 	
 ## Known Bugs:
-	-Nothing actually works yet
+  * runtime error if you enter a non-integer when UserOfMazeSolver propmts you what rank and file you want to start at
 
 ## Recursive Abstraction: 
 	When I am asked if there is there a path through a maze starting and ending at a designated point, the recursive abstraction can find if there is a path through a maze starting at a point one step further than the current point and ending at a designated point.
@@ -22,6 +22,10 @@ Code-sharing  [here](https://codeshare.io/GqlWpj)
 
 ## Version 1:
   * Port directions and maze tiles to enums
+  --Stuff we had time to add--
+  * Now once the maze is solved it MazeSolver will display the path
+  * Testing is much much easier
+  * Code is shorter
 
 ## Version n Wishlist:
   * Shortest path

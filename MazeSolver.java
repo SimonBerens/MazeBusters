@@ -21,21 +21,15 @@ public class MazeSolver {
         }
         if (maze.explorerIsOnA() != Maze.Tile.STEPPING_STONE) return false;
 
-        // save the maze so you can backtrack
-        Maze snapshot = new Maze(maze);
-
         // try every direction
         for (Maze.Direction direction:
         Maze.Direction.values()){
 
             // call the recursive abstraction after turning the current position
             // into a wall and moving in a direction
-            if(solve(maze.dropA(Maze.Tile.PATH).go(direction))) {
+            if(solve(new Maze(maze).dropA(Maze.Tile.PATH).go(direction))) {
                 return true;
             }
-
-            // set the current maze back to the snapshot
-            maze = new Maze(snapshot);
         }
         return false;
     }

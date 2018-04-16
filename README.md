@@ -22,7 +22,9 @@ Code-sharing  [here](https://codeshare.io/GqlWpj)
 
 ## Version 1:
   * Port directions and maze tiles to enums
+  
   --Stuff we had time to add--
+  
   * Now once the maze is solved it MazeSolver will display the path
   * Testing is much much easier
   * Code is shorter

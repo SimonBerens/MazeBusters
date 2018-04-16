@@ -25,7 +25,7 @@ Code-sharing  [here](https://codeshare.io/GqlWpj)
   
   --Stuff we had time to add--
   
-  * Now once the maze is solved it MazeSolver will display the path
+  * Now once the maze is solved MazeSolver will display the path
   * Testing is much much easier
   * Code is shorter
 

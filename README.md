@@ -8,6 +8,7 @@
 	
 ## Known Bugs:
   * runtime error if you enter a non-integer when UserOfMazeSolver propmts you what rank and file you want to start at
+  * UserOfMaze not compatible with Maze in v1 (tested in UserOfMazeSolver)
 
 ## Recursive Abstraction: 
 	When I am asked if there is there a path through a maze starting and ending at a designated point, the recursive abstraction can find if there is a path through a maze starting at a point one step further than the current point and ending at a designated point.

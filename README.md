@@ -7,8 +7,9 @@
 	Is there a path through a maze starting and ending at a designated point.
 	
 ## Known Bugs:
-	-Nothing actually works yet
-
+	-The same things are typed twice
+	-Provides unhelpful feedback with misuse of command line arguments when invoking UserOfMazeSolver
+	
 ## Recursive Abstraction: 
 	When I am asked if there is there a path through a maze starting and ending at a designated point, the recursive abstraction can find if there is a path through a maze starting at a point one step further than the current point and ending at a designated point.
 

@@ -1,3 +1,8 @@
+
+import java.io.*;
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
 /**
   Test Maze class.
 
@@ -12,28 +17,112 @@
 public class UserOfMaze {
     private static Displayer displayer;
 
-    public static void main(String[] commandLine)
-       throws java.io.FileNotFoundException {
-        System.out.println();
+    // public static void main(String[] commandLine)
+    //    throws java.io.FileNotFoundException {
+    //     System.out.println();
 
-        Maze maze = new Maze( commandLine[0]
-                            , Integer.parseInt( commandLine[1])
-                            , Integer.parseInt( commandLine[2])
-                            );
-        System.out.println( maze + System.lineSeparator());
+    //     Maze maze = new Maze( commandLine[0]
+    //                         , Integer.parseInt( commandLine[1])
+    //                         , Integer.parseInt( commandLine[2])
+    //                         );
+    //     System.out.println( maze + System.lineSeparator());
 
-        // moveTest( maze);
-        // dropTest( maze);
+    //     // moveTest( maze);
+    //     // dropTest( maze);
 
-        copyConstructTest( maze);
+    //     copyConstructTest( maze);
 
-        // test Displayer
-        // displayer = new Displayer( Integer.parseInt( commandLine[3]));
-        // displayerTest( maze);
+    //     // test Displayer
+    //     // displayer = new Displayer( Integer.parseInt( commandLine[3]));
+    //     // displayerTest( maze);
 
-        // snapshotDemo( maze);
+    //     // snapshotDemo( maze);
+    // }
+
+    public static void main(String[] commandLine) throws FileNotFoundException {
+        
+        System.out.println("If this is printed, pls set your filepath in the code and comment this section out");
+        String filePath = "uhoh";
+        
+        // see https://piazza.com/class/j7oyiev6r7x576?cid=446
+        // String filePath = "C:\\Users\\gbere\\Desktop\\AP_CS\\MazeSolver\\mazes"; // modify as necessary
+        // String filePath = "C:\\Users\\lucie\\Documents\\School\\Git\\MazeBusters\\mazes";
+         // String filePath = "E:\\Users\\Lucien\\Documents\\School\\Compsci\\Git\\MazeBusters\\mazes";
+        String[] mazes = ( new File( filePath)).list();
+
+        int option;
+        do {
+            showOptions( mazes);
+
+            System.out.println( "Please select an option");
+            test( validateInput( mazes.length), mazes);
+
+            System.out.println( "Please select what you would like to do next \n" +
+                    "0: Exit \n" +
+                    "1: Test another maze \n");
+            option = validateInput( 2);
+
+        } while (option != 0);
     }
 
+    private static void test(int choice, String[] mazes) throws FileNotFoundException {
+        System.out.println( "Now testing " + mazes[ choice]);
+
+        String fileName = "mazes\\" + mazes[ choice];
+
+        // show the maze to solve
+        try ( BufferedReader br = new BufferedReader( new FileReader( fileName))) {
+            String line;
+            while ( ( line = br.readLine()) != null) {
+                System.out.println( line);
+            }
+        } catch ( IOException e) {
+            e.printStackTrace();
+        }
+
+        // select starting position
+        Scanner sc = new Scanner( System.in);
+        System.out.println( "Where would you like to start?");
+        System.out.println( "rank:");
+        int rank = sc.nextInt();
+        sc.nextLine();
+        System.out.println( "file:");
+        int file = sc.nextInt();
+
+        // create and solve maze
+        Maze maze = new Maze( fileName, rank, file);
+        System.out.println( maze);
+        moveTest( maze);
+        dropTest( maze);
+    }
+
+    private static int validateInput( int range) {
+        Scanner sc = new Scanner(System.in);
+
+        int questionableChoice;
+        do {
+            System.out.println("Please enter a valid choice!");
+            while (!sc.hasNextInt()) {
+                System.out.println("That's not a number!");
+                sc.next();
+            }
+            questionableChoice = sc.nextInt();
+        } while (!(questionableChoice >= 0 && questionableChoice < range));
+        return questionableChoice; // no longer questionable
+    }
+
+    /**
+     * Displays the names of possible mazes to test
+     * @param mazes the array of mazes
+     */
+
+    private static void showOptions( String[] mazes) {
+        System.out.println( "Here are your options");
+        System.out.println( mazes.length);
+        for ( int i = 0; i < mazes.length; i++) {
+            System.out.println( i + ": " + mazes[ i]);
+        }
+    }
 
     /**
       Move around a maze. Check the results.
@@ -41,30 +130,30 @@ public class UserOfMaze {
           java UserOfMaze mazes/4cell_treasureWest.txt -1 -1  # no explorer
      */
     private static void moveTest( Maze maze) {
-        maze.go( Maze.EAST);
+        maze.go( Maze.Direction.EAST);
         System.out.println( "go east"
                           + ", leaving explorer on a " + maze.explorerIsOnA()
                           +      System.lineSeparator()
                           + maze + System.lineSeparator());
-        maze.go( Maze.NORTH);
+        maze.go( Maze.Direction.NORTH);
         System.out.println( "go north"
                           + ", leaving explorer on a " + maze.explorerIsOnA()
                           +      System.lineSeparator()
                           + maze + System.lineSeparator());
-        maze.go( Maze.WEST);
+        maze.go( Maze.Direction.WEST);
         System.out.println( "go west"
                           + ", leaving explorer on a " + maze.explorerIsOnA()
                           +      System.lineSeparator()
                           + maze + System.lineSeparator());
-        maze.go( Maze.SOUTH);
+        maze.go( Maze.Direction.SOUTH);
         System.out.println( "go south"
                           + ", leaving explorer on a " + maze.explorerIsOnA()
                           +      System.lineSeparator()
                           + maze + System.lineSeparator());
 
         // step out of the maze
-        maze.go( Maze.SOUTH);
-        maze.go( Maze.SOUTH);
+        maze.go( Maze.Direction.SOUTH);
+        maze.go( Maze.Direction.SOUTH);
         System.out.println( "outside"
                           + ", leaving explorer \"on\" a " + maze.explorerIsOnA()
                           +      System.lineSeparator()
@@ -78,18 +167,18 @@ public class UserOfMaze {
           java UserOfMaze mazes/4cell_treasureWest.txt 0 1
      */
     private static void dropTest( Maze maze) {
-        maze.dropA( Maze.TREASURE);
-        System.out.println( "tried to drop a " + Maze.TREASURE
+        maze.dropA( Maze.Tile.TREASURE);
+        System.out.println( "tried to drop a " + Maze.Tile.TREASURE
                           + ", leaving explorer on a " + maze.explorerIsOnA()
                           +      System.lineSeparator()
                           + maze + System.lineSeparator());
-        maze.dropA( Maze.WALL);
-        System.out.println( "dropped a " + Maze.WALL
+        maze.dropA( Maze.Tile.WALL);
+        System.out.println( "dropped a " + Maze.Tile.WALL
                           + ", leaving explorer on a " + maze.explorerIsOnA()
                           +      System.lineSeparator()
                           + maze + System.lineSeparator());
-        maze.dropA( Maze.STEPPING_STONE);
-        System.out.println( "dropped a " + Maze.STEPPING_STONE
+        maze.dropA( Maze.Tile.STEPPING_STONE);
+        System.out.println( "dropped a " + Maze.Tile.STEPPING_STONE
                           + ", leaving explorer on a " + maze.explorerIsOnA()
                           +      System.lineSeparator()
                           + maze + System.lineSeparator());
@@ -107,8 +196,8 @@ public class UserOfMaze {
         Maze copy = new Maze( old);
 
         // change the old
-        old.go( Maze.NORTH);
-        old.dropA( Maze.WALL);
+        old.go( Maze.Direction.NORTH);
+        old.dropA( Maze.Tile.WALL);
         System.out.println(
                             "modified old" + System.lineSeparator()
                           + old + System.lineSeparator()
@@ -117,9 +206,9 @@ public class UserOfMaze {
                           );
 
         // change the copy
-        copy.go( Maze.SOUTH);
-        copy.go( Maze.WEST);
-        copy.dropA( Maze.STEPPING_STONE);
+        copy.go( Maze.Direction.SOUTH);
+        copy.go( Maze.Direction.WEST);
+        copy.dropA( Maze.Tile.STEPPING_STONE);
         System.out.println(
                             "modified copy" + System.lineSeparator()
                           + copy + System.lineSeparator()
@@ -141,7 +230,7 @@ public class UserOfMaze {
 
         // move past west edge, Displaying as we go
         while( step < 5) {
-            m.go( Maze.WEST);
+            m.go( Maze.Direction.WEST);
             displayer.atTopOfWindow( m + "step " + step++);
         }
     }

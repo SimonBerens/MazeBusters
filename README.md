@@ -30,20 +30,24 @@ Code-sharing  [here](https://codeshare.io/GqlWpj)
 ## Classes:
 #### Maze 
 * Fields
-  * 2-D array for points (maybe in vn just store the turning points) )
-  * Current location
+  * Tile[][] Maze
+  * MAX_RANKS
+  * rankCount
+  * Explorer position
+  * Tile enum
+  * Direction enum
 * Methods
-  * getCurLoc()
-  * movePos(direction)
-  * markPtAsVisited()
-  * markPtAsBacktracked()
-  * findMoves()
+  * Constructor / Copy Constructor
+  * Tile explorerIsOnA();
+  * Maze go(Direction)
+  * Maze dropA(Tile)
 
-#### Solver
+#### MazeSolver
  * Fields
-   * Maze
+   
  * Methods
-   * solve()
+   * solve(Maze)
+   
 ## Algorithm:
 	solve(maze)
 		if explorer is on the end point
